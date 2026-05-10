@@ -1,0 +1,264 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --void: #040508;
+  --panel: #080c14;
+  --surface: #0d1526;
+  --border: #1a2540;
+  --teal: #2de8c8;
+  --teal-dim: #2de8c840;
+  --amber: #f5a623;
+  --crimson: #ff4e6a;
+  --iris: #7c6eff;
+  --text-primary: #e8edf5;
+  --text-secondary: #6b7fa3;
+  --text-muted: #3d4e6e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--void);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--panel);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--teal);
+}
+
+/* Selection */
+::selection {
+  background: #2de8c830;
+  color: var(--teal);
+}
+
+/* Noise overlay */
+.noise::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* Glass morphism */
+.glass {
+  background: rgba(13, 21, 38, 0.6);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(26, 37, 64, 0.8);
+}
+
+.glass-teal {
+  background: rgba(45, 232, 200, 0.04);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(45, 232, 200, 0.15);
+}
+
+/* Gradient text */
+.grad-teal {
+  background: linear-gradient(135deg, #2de8c8 0%, #7c6eff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.grad-amber {
+  background: linear-gradient(135deg, #f5a623 0%, #ff4e6a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Input focus ring */
+.wallet-input:focus {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 1px var(--teal), 0 0 20px var(--teal-dim);
+}
+
+/* Card hover */
+.analytics-card {
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.analytics-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(45, 232, 200, 0.3);
+  box-shadow: 0 8px 32px rgba(45, 232, 200, 0.08);
+}
+
+/* Stagger animation delays */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.3s; }
+.stagger-7 { animation-delay: 0.35s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scanLine {
+  0% { top: 0%; }
+  100% { top: 100%; }
+}
+
+@keyframes orb1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.05); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+@keyframes orb2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-30px, 40px) scale(0.95); }
+  66% { transform: translate(25px, -15px) scale(1.05); }
+}
+
+@keyframes spinRing {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulseRing {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 0.4; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.5s ease both;
+  opacity: 0;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease both;
+}
+
+.orb-1 { animation: orb1 8s ease-in-out infinite; }
+.orb-2 { animation: orb2 10s ease-in-out infinite; }
+
+.spin-ring { animation: spinRing 2s linear infinite; }
+.pulse-ring { animation: pulseRing 1.5s ease-in-out infinite; }
+
+/* Score arc */
+.score-circle {
+  transition: stroke-dashoffset 1s ease;
+}
+
+/* Shimmer loader */
+.shimmer {
+  background: linear-gradient(90deg, var(--surface) 25%, var(--border) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Glow button */
+.btn-analyze {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+.btn-analyze::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #2de8c8, #7c6eff);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.btn-analyze:hover::before { opacity: 0.15; }
+.btn-analyze:hover {
+  box-shadow: 0 0 24px rgba(45, 232, 200, 0.4);
+  border-color: rgba(45, 232, 200, 0.8);
+}
+.btn-analyze:active { transform: scale(0.98); }
+
+/* Risk pill */
+.risk-low {
+  color: #2de8c8;
+  background: rgba(45, 232, 200, 0.1);
+  border: 1px solid rgba(45, 232, 200, 0.3);
+}
+.risk-medium {
+  color: #f5a623;
+  background: rgba(245, 166, 35, 0.1);
+  border: 1px solid rgba(245, 166, 35, 0.3);
+}
+.risk-high {
+  color: #ff4e6a;
+  background: rgba(255, 78, 106, 0.1);
+  border: 1px solid rgba(255, 78, 106, 0.3);
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+/* Hex grid bg */
+.hex-bg {
+  background-image: 
+    radial-gradient(ellipse 60% 40% at 20% 20%, rgba(45,232,200,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 70%, rgba(124,110,255,0.05) 0%, transparent 60%);
+}
+
+/* Wallet Adapter Customization */
+.wallet-multi-button-wrapper .wallet-adapter-button {
+  background: var(--iris) !important;
+  height: 48px !important;
+  padding: 0 24px !important;
+  border-radius: 12px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  font-family: inherit !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.wallet-multi-button-wrapper .wallet-adapter-button:hover {
+  background: #8c80ff !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 8px 24px rgba(124, 110, 255, 0.3) !important;
+}
+
+.wallet-multi-button-wrapper .wallet-adapter-button:active {
+  transform: translateY(0) !important;
+}
+
+.wallet-multi-button-wrapper .wallet-adapter-button-trigger {
+  background: var(--iris) !important;
+}
